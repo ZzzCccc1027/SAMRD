@@ -1,0 +1,32 @@
+---
+image_encoder: nodem
+mask_decoder: sam_mask_decoder
+prompt_predictor: sam_vitb_high_res_ppn
+sam_checkpoint: "D:\\zhuhe\\sam2rad\\sam2rad\\weights\\sam_vit_b_01ec64.pth"
+
+wandb_project_name: "landslide"
+
+dataset:
+  name: rgb
+#  root: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\zhejiang
+  root: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\landslide
+#  root: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\data3
+  image_size: 1024
+  split: 0.8 # training split
+  seed: 42
+  batch_size: 2
+  num_classes: 1
+  num_workers: 0
+  num_tokens: 16
+  val_list_path: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\landslide\\val_list.txt
+
+training:
+  max_epochs: 150
+  save_path: D:\\zhuhe\\sam2rad\\model_save\\bijie
+  resume: None
+  seed: 42
+
+inference:
+  name: landslide_test
+  root: D:\\pycharm\\samtwo\\sam2rad\\datasets\\landslide\\Test
+  checkpoint_path: D:\\zhuhe\\sam2rad\\checkpoints\\model_epoch=104-val_dice=0.88.ckpt

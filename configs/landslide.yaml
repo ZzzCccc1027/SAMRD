@@ -1,0 +1,39 @@
+---
+image_encoder: rd_vit
+mask_decoder: sam_mask_decoder
+prompt_predictor: sam_vitb_high_res_ppn
+sam_checkpoint: "D:\\zhuhe\\sam2rad\\sam2rad\\weights\\sam_vit_b_01ec64.pth"
+
+wandb_project_name: "landslide"
+
+dataset:
+  name: landslide
+#  root: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\zhejiang
+  root: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\landslide
+#  root: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\data3
+  image_size: 1024
+  split: 0.8 # training split
+  seed: 42
+  batch_size: 2
+  num_classes: 1
+  num_workers: 0
+  num_tokens: 16
+#  dem_file_path: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\zhejiang\\Train\\dem
+  dem_file_path: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\landslide\\Train\\dem_sc
+  val_list_path: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\landslide\\val_list.txt
+#  dem_file_path: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\data3\\Train\\dem
+#  val_list_path: D:\\zhuhe\\sam2rad\\sam2rad\\datasets\\data3\\val_list.txt
+  bias_strength: 0.30                                               # 偏差强度 0.05~0.3
+  min_iou: 0.30                                                            #与 GT 的 IoU 下限
+  max_resample: 20                                               # 不达标时的重采样上限
+
+training:
+  max_epochs: 100
+  save_path: D:\\zhuhe\\sam2rad\\model_save\\bijie
+  resume: None
+  seed: 42
+
+inference:
+  name: landslide_test
+  root: D:\\pycharm\\samtwo\\sam2rad\\datasets\\trans_learning\\Test
+  checkpoint_path: D:\\zhuhe\\sam2rad\\sam2rad\\weights\\sam_vit_b_01ec64.pth
